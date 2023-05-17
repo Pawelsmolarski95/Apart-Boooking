@@ -1,6 +1,6 @@
 "use client";
 
-import { IoMdClose } from "react-icons/io"
+import { IoMdClose } from "react-icons/io";
 
 interface ModalProps {
   isOpen: boolean;
@@ -76,17 +76,32 @@ const Modal: React.FC<ModalProps> = ({
             <div className="translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none ">
               {/* HEADER */}
               <div className="flex items-center p-6 rounded-t justify-center relative border-b-[1px]">
-                <button onClick={handleClose} className="p-1 border-0 hover:opacity-70 transition absolute left-9"><IoMdClose/></button>
-                <div className="text-lg font-semibold">
-                  {title}
-                </div>
+                <button
+                  onClick={handleClose}
+                  className="p-1 border-0 hover:opacity-70 transition absolute left-9"
+                >
+                  <IoMdClose />
+                </button>
+                <div className="text-lg font-semibold">{title}</div>
               </div>
               {/* BODY */}
-              <div className="relative p-6 flex-auto"></div>
+              <div className="relative p-6 flex-auto">{body}</div>
               {/* FOOTER */}
               <div className="flex flex-col gap-2 p-6">
                 <div className="flex flex-row items-center gap-4 w-full">
-                  <Button label="Button" />
+                  {secondaryAction && secondaryLabel && (
+                    <Button
+                      outline
+                      disabled={disabled}
+                      label={secondaryLabel}
+                      onClick={secondaryAction}
+                    />
+                  )}
+                  <Button
+                    disabled={disabled}
+                    label={actionLabel}
+                    onClick={handleSubmit}
+                  />
                 </div>
               </div>
             </div>
