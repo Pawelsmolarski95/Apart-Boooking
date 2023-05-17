@@ -17,19 +17,19 @@ const RegisterModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, },
   } = useForm<FieldValues>({
     defaultValues: {
-      name: "",
-      email: "",
-      password: "",
+      name: " ",
+      email: " ",
+      password: " ",
     },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setLoading(true);
     axios
-      .post("/api/register", data)
+      .post('/api/register', data)
       .then(() => {
         registerModal.onClose();
       })
@@ -42,11 +42,38 @@ const RegisterModal = () => {
   };
 
   const bodyContent = (
-    <div className="flex flex-col gap-4 ">
-      <Heading title="Welcome to Airbnb" subtitle="Create an account!"  />
-      <Input />
+    <div className="flex flex-col gap-4">
+      <Heading
+        title="Welcome to Airbnb"
+        subtitle="Create an account!"
+      />
+      <Input
+        id="email"
+        label="Email"
+        disabled={loading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="name"
+        label="Name"
+        disabled={loading}
+        register={register}
+        errors={errors}
+        required
+      />
+      <Input
+        id="password"
+        label="Password"
+        type="password"
+        disabled={loading}
+        register={register}
+        errors={errors}
+        required
+      />
     </div>
-  );
+  )
 
   return (
     <Modal
