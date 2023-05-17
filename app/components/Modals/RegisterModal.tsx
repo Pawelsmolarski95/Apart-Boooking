@@ -1,14 +1,20 @@
 "use client";
 
 import axios from "axios";
-import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { MdFacebook } from "react-icons/md";
 import { useCallback, useState } from "react";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {
+  FieldValues,
+  SubmitHandler,
+  useForm,
+} from "react-hook-form";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../Inputs/Input";
+import { toast } from "react-hot-toast";
+import Button from "../Button";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -17,7 +23,7 @@ const RegisterModal = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, },
+    formState: { errors },
   } = useForm<FieldValues>({
     defaultValues: {
       name: " ",
@@ -29,12 +35,12 @@ const RegisterModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setLoading(true);
     axios
-      .post('/api/register', data)
+      .post("/api/register", data)
       .then(() => {
         registerModal.onClose();
       })
       .catch((error) => {
-        console.log(error);
+        toast.error("Something went wrong");
       })
       .finally(() => {
         setLoading(false);
@@ -73,7 +79,39 @@ const RegisterModal = () => {
         required
       />
     </div>
-  )
+  );
+
+  const footerContent = (
+    <div className="mt-3 flex flex-col gap-4">
+      <hr />
+      <Button
+        outline
+        icon={FcGoogle}
+        label="Continue with Google"
+        onClick={() => {
+          console.log("Continue with google");
+        }}
+      />
+      <Button
+        outline
+        icon={MdFacebook}
+        colorIcon="#0165E1"
+        label="Continue with Facebook"
+        onClick={() => {
+          console.log("Continue with facebook");
+        }}
+      />
+      <div className="mt-4 text-center font-light text-neutral-500">
+        <div className="flex flex-row justify-center gap-4">
+          <div>Already have an account?</div>
+
+          <div onClick={registerModal.onClose} className="cursor-pointer text-neutral-800 hover:underline">
+            Log in
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <Modal
@@ -84,6 +122,7 @@ const RegisterModal = () => {
       actionLabel="Continue"
       onSubmit={handleSubmit(onSubmit)}
       body={bodyContent}
+      footer={footerContent}
     />
   );
 };
