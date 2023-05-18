@@ -22,7 +22,7 @@ model User {
   favoriteIds    String[]  @db.ObjectId
 
   accounts     Account[]
-  listing      Listing[]
+  listings     Listing[]
   reservations Reservation[]
 }
 
@@ -42,7 +42,7 @@ model Account {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([provider, providerAccount])
+  @@unique([provider, providerAccountId])
 }
 
 model Listing {
@@ -72,6 +72,6 @@ model Reservation {
   totalPrice Int
   createdAt  DateTime @default(now())
 
-  user    User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  listing User @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  listing Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
 }
