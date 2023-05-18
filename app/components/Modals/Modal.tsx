@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
@@ -18,17 +18,17 @@ interface ModalProps {
   secondaryActionLabel?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({
-  isOpen,
-  onClose,
-  onSubmit,
-  title,
-  body,
-  actionLabel,
-  footer,
+const Modal: React.FC<ModalProps> = ({ 
+  isOpen, 
+  onClose, 
+  onSubmit, 
+  title, 
+  body, 
+  actionLabel, 
+  footer, 
   disabled,
   secondaryAction,
-  secondaryActionLabel,
+  secondaryActionLabel
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
 
@@ -40,11 +40,11 @@ const Modal: React.FC<ModalProps> = ({
     if (disabled) {
       return;
     }
-
+  
     setShowModal(false);
     setTimeout(() => {
       onClose();
-    }, 300);
+    }, 300)
   }, [onClose, disabled]);
 
   const handleSubmit = useCallback(() => {
@@ -71,85 +71,76 @@ const Modal: React.FC<ModalProps> = ({
     <>
       <div
         className="
+          justify-center 
+          items-center 
+          flex 
+          overflow-x-hidden 
+          overflow-y-auto 
           fixed 
           inset-0 
           z-50 
-          flex 
-          items-center 
-          justify-center 
-          overflow-y-auto 
-          overflow-x-hidden 
-          bg-neutral-800/70 
-          outline-none
+          outline-none 
           focus:outline-none
+          bg-neutral-800/70
         "
       >
-        <div
-          className="
+        <div className="
           relative 
-          mx-auto
-          my-6
-          h-full
           w-full
-          md:h-auto
-          md:w-4/6 
-          lg:h-auto 
+          md:w-4/6
           lg:w-3/6
           xl:w-2/5
+          my-6
+          mx-auto 
+          h-full 
+          lg:h-auto
+          md:h-auto
           "
         >
           {/*content*/}
-          <div
-            className={`
+          <div className={`
             translate
-            h-full
             duration-300
-            ${
-              showModal
-                ? "translate-y-0"
-                : "translate-y-full"
-            }
-            ${showModal ? "opacity-100" : "opacity-0"}
-          `}
-          >
-            <div
-              className="
+            h-full
+            ${showModal ? 'translate-y-0' : 'translate-y-full'}
+            ${showModal ? 'opacity-100' : 'opacity-0'}
+          `}>
+            <div className="
               translate
-              relative
-              flex
               h-full
-              w-full 
-              flex-col 
-              rounded-lg 
-              border-0 
-              bg-white 
-              shadow-lg 
-              outline-none 
-              focus:outline-none 
-              md:h-auto 
               lg:h-auto
+              md:h-auto
+              border-0 
+              rounded-lg 
+              shadow-lg 
+              relative 
+              flex 
+              flex-col 
+              w-full 
+              bg-white 
+              outline-none 
+              focus:outline-none
             "
             >
               {/*header*/}
-              <div
-                className="
-                relative 
+              <div className="
                 flex 
-                items-center
-                justify-center
-                rounded-t
-                border-b-[1px]
+                items-center 
                 p-6
+                rounded-t
+                justify-center
+                relative
+                border-b-[1px]
                 "
               >
                 <button
                   className="
-                    absolute
-                    left-9 
-                    border-0
                     p-1
-                    transition
+                    border-0 
                     hover:opacity-70
+                    transition
+                    absolute
+                    left-9
                   "
                   onClick={handleClose}
                 >
@@ -160,32 +151,31 @@ const Modal: React.FC<ModalProps> = ({
                 </div>
               </div>
               {/*body*/}
-              <div className="relative flex-auto p-6">
+              <div className="relative p-6 flex-auto">
                 {body}
               </div>
               {/*footer*/}
               <div className="flex flex-col gap-2 p-6">
-                <div
+                <div 
                   className="
                     flex 
-                    w-full 
                     flex-row 
                     items-center 
-                    gap-4
+                    gap-4 
+                    w-full
                   "
                 >
-                  {secondaryAction &&
-                    secondaryActionLabel && (
-                      <Button
-                        disabled={disabled}
-                        label={secondaryActionLabel}
-                        onClick={handleSecondaryAction}
-                        outline
-                      />
-                    )}
-                  <Button
-                    disabled={disabled}
-                    label={actionLabel}
+                  {secondaryAction && secondaryActionLabel && (
+                    <Button 
+                      disabled={disabled} 
+                      label={secondaryActionLabel} 
+                      onClick={handleSecondaryAction}
+                      outline
+                    />  
+                  )}
+                  <Button 
+                    disabled={disabled} 
+                    label={actionLabel} 
                     onClick={handleSubmit}
                   />
                 </div>
@@ -197,6 +187,6 @@ const Modal: React.FC<ModalProps> = ({
       </div>
     </>
   );
-};
+}
 
 export default Modal;
