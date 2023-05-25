@@ -1,6 +1,13 @@
+
+import getListingbyId from '@/app/actions/getlistingById';
 import React from 'react'
 
-const ListingPage = () => {
+interface IParams {
+    listingId?: string 
+}
+
+const ListingPage = async ({ params }: { params: IParams }) => {
+    const listing = await getListingbyId(params);
   return (
     <div>
       My listing page
