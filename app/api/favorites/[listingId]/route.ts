@@ -2,13 +2,13 @@ import { NextResponse } from "next/server";
 import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 
-interface IParmas {
+interface IParamas {
   listingId?: string;
 }
 
 export async function POST(
   request: Request,
-  { params }: { params: IParmas }
+  { params }: { params: IParamas }
 ) {
   const currentUser = await getCurrentUser();
 
@@ -37,9 +37,9 @@ export async function POST(
   return NextResponse.json(user);
 }
 
-export default async function DELETE(
+export  async function DELETE(
   request: Request,
-  { params }: { params: IParmas }
+  { params }: { params: IParamas }
 ) {
   const currentUser = await getCurrentUser();
   if (!currentUser) {
