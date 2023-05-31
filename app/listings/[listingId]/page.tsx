@@ -1,18 +1,34 @@
-
-import getListingbyId from '@/app/actions/getlistingById';
-import React from 'react'
+import getCurrentUser from "@/app/actions/getCurrentUser";
+import getListingbyId from "@/app/actions/getlistingById";
+import ClientOnly from "@/app/components/ClientOnly";
+import EmptyState from "@/app/components/EmptyState";
+import React from "react";
+import ListingClient from "./ListingClient";
 
 interface IParams {
-    listingId?: string 
+  listingId?: string;
 }
 
-const ListingPage = async ({ params }: { params: IParams }) => {
-    const listing = await getListingbyId(params);
+const ListingPage = async ({
+  params,
+}: {
+  params: IParams;
+}) => {
+  const listing = await getListingbyId(params);
+  const currentUser = await getCurrentUser()
+
+  if (!listing) {
+    return (
+      <ClientOnly>
+        <EmptyState />
+      </ClientOnly>
+    );
+  }
   return (
-    <div>
-      My listing page
-    </div>
-  )
-}
+    <ClientOnly>
+      <ListingClient listing={listing}  currentUser={currentUser}/>
+    </ClientOnly>
+  );
+};
 
-export default ListingPage
+export default ListingPage;
